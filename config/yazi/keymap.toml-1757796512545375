@@ -1,0 +1,24 @@
+# ~/.config/yazi/keymap.toml
+
+# Fix W key for opening shell
+[[manager.prepend_keymap]]
+on   = ["W"]
+run  = 'shell "$SHELL" --block --confirm'
+desc = "Open shell here"
+
+# Alternative shell key if W doesn't work
+[[manager.prepend_keymap]]
+on   = ["!"]
+run  = 'shell "$SHELL" --block --confirm'
+desc = "Open shell"
+
+# Quick preview with different tools
+[[manager.prepend_keymap]]
+on   = ["i"]
+run  = 'shell "viu \"$0\"" --block --confirm'
+desc = "Quick image preview"
+
+[[manager.prepend_keymap]]
+on   = ["P"]
+run  = 'shell "termpdf.py \"$0\"" --block --confirm'
+desc = "Quick PDF preview"

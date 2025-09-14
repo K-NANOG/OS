@@ -1,0 +1,38 @@
+# ~/.config/yazi/yazi.toml
+
+[opener]
+# Image viewer with viu
+image = [
+  { run = 'viu "$@"', block = true, desc = "View image" }
+]
+
+# PDF viewer with termpdf.py
+pdf = [
+  { run = 'termpdf.py "$@"', block = true, desc = "View PDF" }
+]
+
+# VSCode for everything else
+edit = [
+  { run = 'code "$@"', desc = "Open in VSCode" }
+]
+
+# Shell opener (fixing W key)
+shell = [
+  { run = '$SHELL', block = true, desc = "Open shell here" }
+]
+
+[open]
+rules = [
+  # Images -> viu
+  { mime = "image/*", use = ["image", "edit"] },
+  
+  # PDFs -> termpdf.py
+  { name = "*.pdf", use = ["pdf", "edit"] },
+  { name = "*.PDF", use = ["pdf", "edit"] },
+  
+  # Directories
+  { mime = "inode/directory", use = ["enter"] },
+  
+  # Everything else -> VSCode
+  { name = "*", use = ["edit"] },
+]
