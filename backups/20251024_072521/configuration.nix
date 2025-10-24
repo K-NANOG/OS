@@ -5,8 +5,13 @@
 
   services.n8n.enable = true;
   services.n8n.openFirewall = true;       # Optional: opens firewall port for n8n
-  
-  
+  services.n8n.settings = {
+    GENERIC_TIMEZONE = "Europe/Paris";    # Set your timezone, e.g.
+    # Add other environment variables here as needed
+  };
+  services.n8n.webhookUrl = "https://your.domain/webhook";  # If behind a reverse proxy
+
+
   ########################
   ## Unfree
   ########################
@@ -38,20 +43,6 @@
   ############################################################
   networking.hostName = "dev";
   networking.networkmanager.enable = true;
-hardware.bluetooth.enable = true;
-services.blueman.enable = true;  # optional, adds the Blueman GUI manager
-
-# K3s (Lightweight Kubernetes)
-#services.k3s = {
-#  enable = true;
-#  role = "server";
-#  extraFlags = toString [
-#    "--disable=traefik"        # Disable traefik 
-#    "--disable=metrics-server" # Disable metrics-server (causing API errors)
-#    "--disable=servicelb"      # Disable service load balancer
-#    "--write-kubeconfig-mode=0644"
-#  ];
-#};
 
   ############################################################
   ## Locale, Timezone, Keyboard
@@ -169,37 +160,30 @@ services.desktopManager.plasma6.enable = true;  # This should be separate, not n
     qt6ct             # tune Qt apps (set QT_QPA_PLATFORMTHEME=qt6ct if you use it)
 
     # Common utilities
-	curl
-	wget
-	git
-	vim
-	unzip
-	firefox
-	obsidian
-	docker-compose
-	neovim
-	vscode
-	python3
-	viu
-	termpdfpy
-	tree
-	sqlite
-	ani-cli
-	kubectl
-	minikube
-	kubernetes
-	gh
-  	nodejs
-  	nodePackages.npm
-	claude-code
-	opentofu
+    curl
+    wget
+    git
+    vim
+unzip
+firefox
+obsidian
+docker-compose
+neovim
+vscode
+python3
+claude-code
+viu
+termpdfpy
+tree
+sqlite
+ani-cli
   ];
 
   # Prefer Wayland for Electron/Chromium-based apps (Chrome, Discord, VSCode, etc.)
   environment.sessionVariables = {
     NIXOS_OZONE_WL = "1";
     # If you use qt6ct for Qt theming, uncomment:
-    QT_QPA_PLATFORMTHEME = "kde";
+    # QT_QPA_PLATFORMTHEME = "qt6ct";
   };
 
   ############################################################
@@ -229,7 +213,7 @@ services.desktopManager.plasma6.enable = true;  # This should be separate, not n
   # services.openssh.enable = true;
 users.users.lys = {
 	isNormalUser = true;
-	extraGroups = [ "wheel" "networkmanager" "docker" "k3s"];
+	extraGroups = [ "wheel" "networkmanager" ];
 	initialPassword = "ltbcuoviolyss";
 };
 }
